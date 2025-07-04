@@ -101,9 +101,10 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Selected name:', nameSelect.value);
         console.log('Selected project:', projectSelect.value);
         
-        // Example: Navigate to about page with query parameters
+        // Open the GitHub URL for the selected project and username
         if (nameSelect.value && projectSelect.value) {
-            window.location.href = `about/?name=${nameSelect.value}&project=${projectSelect.value}`;
+            const githubUrl = `https://github.com/Salamander-Tech-Hub/${projectSelect.value}/tree/main/${nameSelect.value}`;
+            window.open(githubUrl, '_blank');
         } else {
             alert('Please select both name and project');
         }
