@@ -3,45 +3,55 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salamander Tech Hub</title>
     <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="index.css" />
-    <title>Salamander</title>
+    <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <nav>
-      <div class="nav__logo">
-        <div>Salamander</div>
-        Tech Hub
+    <nav class="navbar">
+      <a href="index.html" class="logo">
+        <img src="assets/images/salamander-logo-yellow.svg" alt="Salamander" />
+      </a>
+      <div class="nav-links">
+        <a href="about.html">About ℹ️</a>
+        <a href="#">Projects 🏢</a>
+        <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
       </div>
-      <ul class="nav__menu">
-        <li>
-          <a href="#">About</a>
-        </li>
-        <li>
-          <a href="#">Github for Dummies</a>
-        </li>
-        <li>
-          <a href="#">Repos</i></a>
-        </li>
-      </ul>
     </nav>
-    <header class="header__container">
-  <div class="header__content">
-    <h1>Collaborate <span>Smarter</span></h1>
-    <p>
-      Open source community at its best. Join developers, designers, and innovators building the future together.
-    </p>
-    <div class="header__buttons">
-      <a href="#" class="btn primary">Join Community</a>
-      <a href="#" class="btn secondary">Check Repos</a>
-    </div>
-  </div>
-</header>
 
-    <script src="https://unpkg.com/scrollreveal"></script>
-    <script src="index.js"></script>
+    <main class="main-content">
+      <img
+        src="assets/images/salamander-logo-yellow.svg"
+        alt="Salamander Tech Hub"
+        class="salamander-logo"
+      />
+
+      <h1 class="motto">build 🚀. burn 🔥. evolve 🦎</h1>
+
+      <div class="controls">
+        <div class="control-group">
+          <label for="name-select">Select name:</label>
+          <div class="select-wrapper">
+            <select id="name-select"></select>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label for="project-select">Select project:</label>
+          <div class="select-wrapper">
+            <select id="project-select">
+              <option value="hello-world">hello-world</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="cta-button">Check out Salamander // 👓</button>
+      </div>
+    </main>
+
+    <script src="js/script.js"></script>
   </body>
 </html>
