@@ -1,7 +1,63 @@
+// Dark mode functionality - works on all pages
+document.addEventListener('DOMContentLoaded', function() {
+    const toggle = document.getElementById("theme-toggle");
+    
+    if (toggle) {
+        // Load saved theme preference or use system preference
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            document.body.classList.add('dark-mode');
+            toggle.textContent = "☀️";
+        } else {
+            toggle.textContent = "🌙";
+        }
+        
+        toggle.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+            const isDark = document.body.classList.contains("dark-mode");
+            toggle.textContent = isDark ? "☀️" : "🌙";
+            
+            // Save theme preference
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+    }
+
+    // Mobile menu functionality - works on all pages
+    const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+    const navLinks = document.getElementById("nav-links");
+    
+    if (mobileMenuToggle && navLinks) {
+        mobileMenuToggle.addEventListener("click", () => {
+            navLinks.classList.toggle("active");
+        });
+
+        // Close mobile menu when clicking on a link
+        const navLinksList = navLinks.querySelectorAll("a");
+        navLinksList.forEach(link => {
+            link.addEventListener("click", () => {
+                navLinks.classList.remove("active");
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener("click", (event) => {
+            if (!navLinks.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
+                navLinks.classList.remove("active");
+            }
+        });
+    }
+});
+
+// Home page specific functionality
 document.addEventListener('DOMContentLoaded', function() {
     const nameSelect = document.getElementById('name-select');
     const projectSelect = document.getElementById('project-select');
     const ctaButton = document.querySelector('.cta-button');
+    
+    // Only run if we're on the home page (has name-select element)
+    if (!nameSelect) return;
     
     // Clear any existing options first
     nameSelect.innerHTML = '';
@@ -118,11 +174,4 @@ document.addEventListener('DOMContentLoaded', function() {
     projectSelect.addEventListener('change', function() {
         console.log(`Project changed to: ${this.value}`);
     });
-     // Dark mode toggle logic
-  const toggle = document.getElementById("theme-toggle");
-  toggle.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-    toggle.textContent =
-      document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
-  });
 });
