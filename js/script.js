@@ -3,21 +3,36 @@ document.addEventListener('DOMContentLoaded', function() {
     const toggle = document.getElementById("theme-toggle");
     
     if (toggle) {
-        // Load saved theme preference or use system preference
+        // Load saved theme preference, default to dark mode
         const savedTheme = localStorage.getItem('theme');
-        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         
-        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
-            document.body.classList.add('dark-mode');
-            toggle.textContent = "☀️";
+        const toggleIcon = toggle.querySelector('.toggle-icon');
+        const toggleText = toggle.querySelector('.toggle-text');
+        
+        if (savedTheme === 'light') {
+            // User has explicitly chosen light mode
+            toggleIcon.textContent = "🌙";
+            toggleText.textContent = "Light";
         } else {
-            toggle.textContent = "🌙";
+            // Default to dark mode (new users or no preference saved)
+            document.body.classList.add('dark-mode');
+            toggleIcon.textContent = "☀️";
+            toggleText.textContent = "Dark";
         }
         
         toggle.addEventListener("click", () => {
             document.body.classList.toggle("dark-mode");
             const isDark = document.body.classList.contains("dark-mode");
-            toggle.textContent = isDark ? "☀️" : "🌙";
+            const toggleIcon = toggle.querySelector('.toggle-icon');
+            const toggleText = toggle.querySelector('.toggle-text');
+            
+            if (isDark) {
+                toggleIcon.textContent = "☀️";
+                toggleText.textContent = "Dark";
+            } else {
+                toggleIcon.textContent = "🌙";
+                toggleText.textContent = "Light";
+            }
             
             // Save theme preference
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
