@@ -125,4 +125,27 @@ document.addEventListener('DOMContentLoaded', function() {
     toggle.textContent =
       document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
   });
+
+  // Mobile menu toggle logic
+  const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+  const navLinks = document.getElementById("nav-links");
+  
+  mobileMenuToggle.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+  });
+
+  // Close mobile menu when clicking on a link
+  const navLinksList = navLinks.querySelectorAll("a");
+  navLinksList.forEach(link => {
+    link.addEventListener("click", () => {
+      navLinks.classList.remove("active");
+    });
+  });
+
+  // Close mobile menu when clicking outside
+  document.addEventListener("click", (event) => {
+    if (!navLinks.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
+      navLinks.classList.remove("active");
+    }
+  });
 });
