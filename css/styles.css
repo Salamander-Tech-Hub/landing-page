@@ -5,6 +5,39 @@
     box-sizing: border-box;
 }
 
+/* Custom Scrollbar - Salamander Colors - Floating Style */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #f5fe00;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    min-height: 40px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #8CFF00;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+/* Firefox scrollbar - Floating Style */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #f5fe00 transparent;
+}
+
 body {
     font-family: 'Geist';
     background-color: #F6F4F0;
@@ -19,11 +52,21 @@ body {
     align-items: center;
     padding: 15px 40px;
     background-color: #000000;
-    width: 100%;
+    width: calc(100% - 20px);
+    max-width: 1400px;
+    margin: 20px auto 0;
     position: sticky;
-    top: 0;
+    top: 20px;
     z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.navbar:hover {
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
 }
 
 .logo {
@@ -37,11 +80,11 @@ body {
 
 .nav-links {
     display: flex;
-    gap: 30px;
+    gap: 40px;
 }
 
 .nav-links a {
-    /* text-decoration: none; */
+    text-decoration: none;
     color: #FFFFFF;
     font-size: 16px;
 }
@@ -70,14 +113,51 @@ body {
     color: #FFED00;
 }
 
+/* Theme toggle button */
+.theme-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #FFFFFF;
+    padding: 6px 12px;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    height: 32px;
+    line-height: 1;
+}
+
+.theme-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+.toggle-icon {
+    font-size: 14px;
+    line-height: 1;
+}
+
+.toggle-text {
+    font-family: 'Geist', sans-serif;
+    font-size: 14px;
+    line-height: 1;
+}
+
 /* Main Content */
 .main-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: calc(100vh - 70px);
-    padding: 40px;
+    min-height: calc(100vh - 120px);
+    padding: 40px 20px;
+    margin-top: 20px;
 }
 
 /* Page Content Styles */
@@ -382,6 +462,9 @@ select::-ms-expand {
 @media (max-width: 768px) {
     .navbar {
         padding: 15px 20px;
+        width: calc(100% - 10px);
+        margin: 10px auto 0;
+        top: 10px;
     }
     
     .mobile-menu-toggle {
@@ -406,7 +489,8 @@ select::-ms-expand {
     }
     
     .main-content {
-        padding: 20px;
+        padding: 20px 10px;
+        margin-top: 10px;
     }
     
     .salamander-logo {
@@ -509,4 +593,139 @@ body.dark-mode .contact-link {
 body.dark-mode .read-more:hover,
 body.dark-mode .contact-link:hover {
   color: #f5f5f5;
+}
+
+/* Additional dark mode styles for better coverage */
+body.dark-mode .values-list li,
+body.dark-mode .involvement-list li,
+body.dark-mode .contribution-steps li {
+  color: #cccccc;
+}
+
+body.dark-mode .blog-intro,
+body.dark-mode .contact-intro {
+  color: #aaaaaa;
+}
+
+body.dark-mode .project-type,
+body.dark-mode .project-status {
+  background-color: #FFED00;
+  color: #000000;
+}
+
+body.dark-mode .mobile-menu-toggle {
+  color: #f5f5f5;
+}
+
+body.dark-mode .mobile-menu-toggle:hover {
+  color: #FFED00;
+}
+
+body.dark-mode .theme-toggle-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #f5f5f5;
+}
+
+body.dark-mode .theme-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Dark mode scrollbar - Floating Style */
+body.dark-mode ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb {
+  background: #f5fe00;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb:hover {
+  background: #8CFF00;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode ::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+body.dark-mode * {
+  scrollbar-color: #f5fe00 transparent;
+}
+
+/* Development Page Styles */
+.oops-message {
+  font-size: 64px;
+  font-weight: 700;
+  color: #f5fe00;
+  text-align: center;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.development-message {
+  font-size: 18px;
+  color: #666666;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.development-actions {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.home-button {
+  display: inline-block;
+  background-color: #000000;
+  color: #f5fe00;
+  text-decoration: none;
+  padding: 15px 40px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  font-family: 'Geist', sans-serif;
+}
+
+.home-button:hover {
+  background-color: #f5fe00;
+  color: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.development-logo {
+  text-align: center;
+}
+
+.development-logo img {
+  height: 80px;
+  width: auto;
+  opacity: 0.8;
+}
+
+/* Dark mode development page styles */
+body.dark-mode .oops-message {
+  color: #f5fe00;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .development-message {
+  color: #aaaaaa;
+}
+
+body.dark-mode .home-button {
+  background-color: #2a2a2a;
+  color: #f5fe00;
+  border: 1px solid #444;
+}
+
+body.dark-mode .home-button:hover {
+  background-color: #f5fe00;
+  color: #000000;
+  border: 1px solid #f5fe00;
 }
