@@ -1,4 +1,3 @@
-
 * {
     margin: 0;
     padding: 0;
@@ -728,4 +727,288 @@ body.dark-mode .home-button:hover {
   background-color: #f5fe00;
   color: #000000;
   border: 1px solid #f5fe00;
+}
+
+/* Contact Page Styles */
+.contact-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.contact-card-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #111111;
+    box-shadow: 0 0 50px 25px #D6AB00;
+    border-radius: 12px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.left-section {
+    background: #111111;
+    padding: 60px 60px 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 32px;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 480px;
+}
+
+.form-header {
+  margin-bottom: 20px;
+}
+
+.form-title {
+  font-family: 'Geist', sans-serif;
+  font-size: 48px;
+  font-weight: 600;
+  color: #FFF;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.form-subtitle {
+  font-family: 'Geist', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #FFF;
+  line-height: 1.4;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-row {
+    display: flex;
+    gap: 16px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.form-field label {
+    font-family: 'Geist', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #FFFFFF;
+    line-height: 1.4;
+    text-align: left;
+    margin-bottom: 4px;
+}
+
+.form-field input,
+.form-field textarea {
+    height: 44px;
+    border: 1px solid #FFFFFF;
+    background: transparent;
+    padding: 12px 16px;
+    color: #FFFFFF;
+    font-family: 'Geist', sans-serif;
+    font-size: 14px;
+    outline: none;
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+    border-color: #FFED00;
+}
+
+.form-field textarea {
+    height: 120px;
+    resize: vertical;
+    line-height: 1.4;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.submit-button {
+    width: 180px;
+    height: 48px;
+    background: #FFED00;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Geist', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #111111;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+}
+
+.submit-button:hover {
+  background: #FFED00;
+  color: #111;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(242, 203, 46, 0.4);
+}
+
+.right-section {
+    display: flex;
+    flex-direction: column;
+    background: #FFED00;
+}
+
+.yellow-background {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 36px;
+    background: #FFED00;
+    padding: 60px 40px;
+    border-radius: 0 0 0 80px;
+}
+
+.featured-image {
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    object-fit: contain;
+}
+
+.social-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-end;
+    text-align: right;
+}
+
+.social-text {
+    font-family: 'Geist', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #111111;
+}
+
+.social-icons {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.social-icons svg {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.social-icons svg:hover {
+    transform: scale(1.15);
+}
+
+/* Responsive Contact Page */
+@media (max-width: 1200px) {
+    .contact-card-wrapper {
+        box-shadow: 0 0 40px 20px rgba(214, 171, 0, 0.85);
+    }
+}
+
+@media (max-width: 1024px) {
+    .contact-card-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .left-section {
+        padding: 48px 32px 56px;
+        align-items: stretch;
+    }
+
+    .right-section {
+        background: transparent;
+    }
+
+    .yellow-background {
+        border-radius: 0;
+        align-items: center;
+        text-align: center;
+        padding: 40px 32px 48px;
+        gap: 28px;
+    }
+
+    .featured-image {
+        max-width: 320px;
+    }
+
+    .social-section {
+        align-items: center;
+        text-align: center;
+    }
+}
+
+@media (max-width: 640px) {
+    .contact-card-wrapper {
+        box-shadow: 0 0 30px 15px rgba(214, 171, 0, 0.75);
+    }
+
+    .left-section {
+        padding: 36px 20px 44px;
+        gap: 24px;
+    }
+
+    .form-title {
+        font-size: 32px;
+    }
+
+    .form-row {
+        flex-direction: column;
+    }
+
+    .contact-form {
+        gap: 14px;
+    }
+
+    .submit-button {
+        width: 100%;
+        align-self: stretch;
+    }
+
+    .yellow-background {
+        padding: 32px 20px 40px;
+        gap: 24px;
+    }
+
+    .featured-image {
+        max-width: 260px;
+    }
+}
+
+/* Dark Mode Contact Page */
+body.dark-mode .contact-card-wrapper {
+  background: #1a1a1a;
+  box-shadow: 0 0 50px 25px rgba(214, 171, 0, 0.4);
+}
+
+body.dark-mode .left-section {
+  background: #1a1a1a;
+}
+
+body.dark-mode .social-text {
+  color: #111;
 }
