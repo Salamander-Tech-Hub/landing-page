@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Customizer</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #64748b;
+            --background-color: #ffffff;
+            --text-color: #1f2937;
+            --accent-color: #f59e0b;
+            --font-family: 'Inter', sans-serif;
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        .theme-dark {
+            --primary-color: #3b82f6;
+            --secondary-color: #94a3b8;
+            --background-color: #0f172a;
+            --text-color: #f1f5f9;
+            --accent-color: #f59e0b;
+        }
+
+        .theme-nature {
+            --primary-color: #10b981;
+            --secondary-color: #6b7280;
+            --background-color: #ecfdf5;
+            --text-color: #064e3b;
+            --accent-color: #f59e0b;
+        }
+
+        .theme-purple {
+            --primary-color: #8b5cf6;
+            --secondary-color: #a78bfa;
+            --background-color: #faf5ff;
+            --text-color: #5b21b6;
+            --accent-color: #f59e0b;
+        }
+
+        .theme-custom {
+            /* Custom theme will be set via JavaScript */
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: var(--font-family);
+            transition: var(--transition);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .theme-customizer {
+            position: fixed;
+            top: 50%;
+            right: -300px;
+            transform: translateY(-50%);
+            background: var(--background-color);
+            border: 2px solid var(--primary-color);
+            border-radius: var(--border-radius) 0 0 var(--border-radius);
+            padding: 20px;
+            width: 280px;
+            box-shadow: -5px 5px 20px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            z-index: 1000;
+        }
+
+        .theme-customizer.open {
+            right: 0;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            left: -50px;
+            top: 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius) 0 0 var(--border-radius);
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 24px;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent-color);
+        }
+
+        .theme-options {
+            display: grid;
+            gap: 15px;
+        }
+
+        .theme-presets {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .theme-preset {
+            padding: 10px;
+            border: 2px solid var(--secondary-color);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .theme-preset:hover {
+            border-color: var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        .theme-preset.active {
+            border-color: var(--accent-color);
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .color-picker {
+            display: grid;
+            gap: 10px;
+        }
+
+        .color-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .color-option label {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .color-input {
+            width: 60px;
+            height: 30px;
+            border: 2px solid var(--secondary-color);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+        }
+
+        .slider-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .slider-option label {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .slider-input {
+            flex: 2;
+        }
+
+        .reset-btn {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+
+        .reset-btn:hover {
+            background: var(--primary-color);
+        }
+
+        /* Demo content styles */
+        .demo-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .demo-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .demo-card {
+            background: var(--background-color);
+            border: 1px solid var(--secondary-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .demo-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .demo-button:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Customizer Panel -->
+    <div class="theme-customizer" id="themeCustomizer">
+        <button class="theme-toggle" onclick="toggleCustomizer()">🎨</button>
+        
+        <div class="theme-options">
+            <h3>Theme Customizer</h3>
+            
+            <div class="theme-presets">
+                <div class="theme-preset active" data-theme="default" onclick="setPresetTheme('default')">
+                    Default
+                </div>
+                <div class="theme-preset" data-theme="dark" onclick="setPresetTheme('dark')">
+                    Dark
+                </div>
+                <div class="theme-preset" data-theme="nature" onclick="setPresetTheme('nature')">
+                    Nature
+                </div>
+                <div class="theme-preset" data-theme="purple" onclick="setPresetTheme('purple')">
+                    Purple
+                </div>
+            </div>
+
+            <div class="color-picker">
+                <h4>Custom Colors</h4>
+                <div class="color-option">
+                    <label>Primary Color:</label>
+                    <input type="color" class="color-input" id="primaryColor" value="#2563eb" onchange="updateCustomTheme()">
+                </div>
+                <div class="color-option">
+                    <label>Background:</label>
+                    <input type="color" class="color-input" id="backgroundColor" value="#ffffff" onchange="updateCustomTheme()">
+                </div>
+                <div class="color-option">
+                    <label>Text Color:</label>
+                    <input type="color" class="color-input" id="textColor" value="#1f2937" onchange="updateCustomTheme()">
+                </div>
+                <div class="color-option">
+                    <label>Accent Color:</label>
+                    <input type="color" class="color-input" id="accentColor" value="#f59e0b" onchange="updateCustomTheme()">
+                </div>
+            </div>
+
+            <div class="slider-option">
+                <label>Border Radius:</label>
+                <input type="range" class="slider-input" id="borderRadius" min="0" max="20" value="8" oninput="updateBorderRadius(this.value)">
+            </div>
+
+            <button class="reset-btn" onclick="resetTheme()">Reset to Default</button>
+        </div>
+    </div>
+
+    <!-- Demo Content -->
+    <div class="demo-content">
+        <div class="demo-header">
+            <h1>Welcome to Salamander Tech Hub</h1>
+            <p>Customize your viewing experience with our theme customizer! →</p>
+        </div>
+
+        <div class="demo-card">
+            <h2>About Us</h2>
+            <p>We are a innovative tech hub focused on creating cutting-edge solutions and fostering developer communities.</p>
+            <button class="demo-button">Learn More</button>
+        </div>
+
+        <div class="demo-card">
+            <h2>Our Services</h2>
+            <p>From web development to AI solutions, we provide comprehensive tech services tailored to your needs.</p>
+            <button class="demo-button">View Services</button>
+        </div>
+
+        <div class="demo-card">
+            <h2>Get In Touch</h2>
+            <p>Ready to start your next project? Contact us today and let's build something amazing together.</p>
+            <button class="demo-button">Contact Us</button>
+        </div>
+    </div>
+
+    <script>
+        // Toggle customizer panel
+        function toggleCustomizer() {
+            const customizer = document.getElementById('themeCustomizer');
+            customizer.classList.toggle('open');
+        }
+
+        // Set preset theme
+        function setPresetTheme(themeName) {
+            // Remove all theme classes
+            document.body.classList.remove('theme-dark', 'theme-nature', 'theme-purple', 'theme-custom');
+            
+            // Add selected theme class
+            if (themeName !== 'default') {
+                document.body.classList.add(`theme-${themeName}`);
+            }
+            
+            // Update active preset
+            document.querySelectorAll('.theme-preset').forEach(preset => {
+                preset.classList.remove('active');
+            });
+            document.querySelector(`[data-theme="${themeName}"]`).classList.add('active');
+            
+            // Reset custom color inputs to match preset
+            if (themeName === 'default') {
+                document.getElementById('primaryColor').value = '#2563eb';
+                document.getElementById('backgroundColor').value = '#ffffff';
+                document.getElementById('textColor').value = '#1f2937';
+                document.getElementById('accentColor').value = '#f59e0b';
+            } else if (themeName === 'dark') {
+                document.getElementById('primaryColor').value = '#3b82f6';
+                document.getElementById('backgroundColor').value = '#0f172a';
+                document.getElementById('textColor').value = '#f1f5f9';
+                document.getElementById('accentColor').value = '#f59e0b';
+            } else if (themeName === 'nature') {
+                document.getElementById('primaryColor').value = '#10b981';
+                document.getElementById('backgroundColor').value = '#ecfdf5';
+                document.getElementById('textColor').value = '#064e3b';
+                document.getElementById('accentColor').value = '#f59e0b';
+            } else if (themeName === 'purple') {
+                document.getElementById('primaryColor').value = '#8b5cf6';
+                document.getElementById('backgroundColor').value = '#faf5ff';
+                document.getElementById('textColor').value = '#5b21b6';
+                document.getElementById('accentColor').value = '#f59e0b';
+            }
+            
+            // Save to localStorage
+            saveThemePreference(themeName);
+        }
+
+        // Update custom theme based on color inputs
+        function updateCustomTheme() {
+            const primaryColor = document.getElementById('primaryColor').value;
+            const backgroundColor = document.getElementById('backgroundColor').value;
+            const textColor = document.getElementById('textColor').value;
+            const accentColor = document.getElementById('accentColor').value;
+            
+            // Remove preset themes
+            document.body.classList.remove('theme-dark', 'theme-nature', 'theme-purple');
+            document.body.classList.add('theme-custom');
+            
+            // Update CSS custom properties
+            document.documentElement.style.setProperty('--primary-color', primaryColor);
+            document.documentElement.style.setProperty('--background-color', backgroundColor);
+            document.documentElement.style.setProperty('--text-color', textColor);
+            document.documentElement.style.setProperty('--accent-color', accentColor);
+            
+            // Update active preset
+            document.querySelectorAll('.theme-preset').forEach(preset => {
+                preset.classList.remove('active');
+            });
+            
+            // Save custom theme to localStorage
+            saveThemePreference('custom', {
+                primaryColor,
+                backgroundColor,
+                textColor,
+                accentColor
+            });
+        }
+
+        // Update border radius
+        function updateBorderRadius(value) {
+            document.documentElement.style.setProperty('--border-radius', value + 'px');
+            localStorage.setItem('themeBorderRadius', value);
+        }
+
+        // Reset to default theme
+        function resetTheme() {
+            setPresetTheme('default');
+            document.getElementById('borderRadius').value = 8;
+            updateBorderRadius(8);
+            localStorage.removeItem('themePreference');
+            localStorage.removeItem('themeBorderRadius');
+        }
+
+        // Save theme preference to localStorage
+        function saveThemePreference(themeName, customColors = null) {
+            const preference = {
+                theme: themeName,
+                customColors: customColors,
+                timestamp: new Date().toISOString()
+            };
+            localStorage.setItem('themePreference', JSON.stringify(preference));
+        }
+
+        // Load saved theme on page load
+        function loadSavedTheme() {
+            const savedPreference = localStorage.getItem('themePreference');
+            const savedBorderRadius = localStorage.getItem('themeBorderRadius');
+            
+            if (savedPreference) {
+                const preference = JSON.parse(savedPreference);
+                
+                if (preference.theme === 'custom' && preference.customColors) {
+                    // Load custom theme
+                    document.getElementById('primaryColor').value = preference.customColors.primaryColor;
+                    document.getElementById('backgroundColor').value = preference.customColors.backgroundColor;
+                    document.getElementById('textColor').value = preference.customColors.textColor;
+                    document.getElementById('accentColor').value = preference.customColors.accentColor;
+                    updateCustomTheme();
+                } else {
+                    // Load preset theme
+                    setPresetTheme(preference.theme);
+                }
+            }
+            
+            if (savedBorderRadius) {
+                document.getElementById('borderRadius').value = savedBorderRadius;
+                updateBorderRadius(savedBorderRadius);
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+        });
+
+        // Close customizer when clicking outside
+        document.addEventListener('click', function(event) {
+            const customizer = document.getElementById('themeCustomizer');
+            const toggleBtn = document.querySelector('.theme-toggle');
+            
+            if (!customizer.contains(event.target) && !toggleBtn.contains(event.target) && customizer.classList.contains('open')) {
+                customizer.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>
